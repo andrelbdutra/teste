@@ -46,8 +46,8 @@ andarFrenteBtn.addEventListener("click",() => {
     editor.dispatch(transaction)
     editor.focus()
     let actualLine = editor.state.doc.lineAt(cursor).number
-    let tamLinha = editor.state.doc.line(actualLine).text.length
-    //editor.dispatch({selection:{anchor: tamLinha}})
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const andarTrasBtn = document.getElementById('andarTras');
@@ -57,8 +57,8 @@ andarTrasBtn.addEventListener("click",() => {
     editor.dispatch(transaction)
     editor.focus()
     let actualLine = editor.state.doc.lineAt(cursor).number
-    let tamLinha = editor.state.doc.line(actualLine).text.length
-    //editor.dispatch({selection:{anchor: tamLinha}})
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const girarEsquerdaBtn = document.getElementById('girarEsquerda');
@@ -68,8 +68,8 @@ girarEsquerdaBtn.addEventListener("click",() => {
     editor.dispatch(transaction)
     editor.focus()
     let actualLine = editor.state.doc.lineAt(cursor).number
-    let tamLinha = editor.state.doc.line(actualLine).text.length
-    //editor.dispatch({selection:{anchor: tamLinha}})
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const girarDireitaBtn = document.getElementById('girarDireita');
@@ -79,8 +79,8 @@ girarDireitaBtn.addEventListener("click",() => {
     editor.dispatch(transaction)
     editor.focus()
     let actualLine = editor.state.doc.lineAt(cursor).number
-    let tamLinha = editor.state.doc.line(actualLine).text.length
-    //editor.dispatch({selection:{anchor: tamLinha}})
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const darMeiaVoltaBtn = document.getElementById('darMeiaVolta');
@@ -90,8 +90,8 @@ darMeiaVoltaBtn.addEventListener("click",() => {
     editor.dispatch(transaction)
     editor.focus()
     let actualLine = editor.state.doc.lineAt(cursor).number
-    let tamLinha = editor.state.doc.line(actualLine).text.length
-    //editor.dispatch({selection:{anchor: tamLinha}})
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const ColetarCristalBtn = document.getElementById('ColetarCristal');
@@ -101,8 +101,8 @@ ColetarCristalBtn.addEventListener("click",() => {
     editor.dispatch(transaction)
     editor.focus()
     let actualLine = editor.state.doc.lineAt(cursor).number
-    let tamLinha = editor.state.doc.line(actualLine).text.length
-    //editor.dispatch({selection:{anchor: tamLinha}})
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const consoleElement = document.getElementById('consoleArea');
