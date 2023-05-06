@@ -35,6 +35,108 @@ let setSpikeTrapStateInterval;
 
 const editor = generateDefaultEditor(document.getElementById("editorArea"));
 
+const andarFrenteBtn = document.getElementById('andarFrente');
+andarFrenteBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "andarFrente(?)\n"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
+const andarTrasBtn = document.getElementById('andarTras');
+andarTrasBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "andarTras(?)\n"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
+const girarEsquerdaBtn = document.getElementById('girarEsquerda');
+girarEsquerdaBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "girarEsquerda()\n"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
+const girarDireitaBtn = document.getElementById('girarDireita');
+girarDireitaBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "girarDireita()\n"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
+const darMeiaVoltaBtn = document.getElementById('darMeiaVolta');
+darMeiaVoltaBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "darMeiaVolta()\n"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
+const desativarLaserAzulBtn = document.getElementById('desativarLaserAzul');
+desativarLaserAzulBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "desativarLaserAzul()\n"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
+const desativarLaserVermelhoBtn = document.getElementById('desativarLaserVermelho');
+desativarLaserVermelhoBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "desativarLaserVermelho()\n"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
+const coletarCristalBtn = document.getElementById('coletarCristal');
+coletarCristalBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "coletarCristal()\n"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine+1).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
+const condicaoFullBtn = document.getElementById('condicaoFull');
+condicaoFullBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {
+        from: cursor,
+        insert: "se(condição){\nação()\n}\nsenão{\nação()\n}\n"
+    }})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine+6).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
 const consoleElement = document.getElementById('consoleArea');
 
 const {renderer, scene, camera, controls} = generateDefaultSceneObjects(document.getElementById("phaseView"));

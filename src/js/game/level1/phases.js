@@ -42,7 +42,7 @@ const editor = generateDefaultEditor(document.getElementById("editorArea"), {
 const andarFrenteBtn = document.getElementById('andarFrente');
 andarFrenteBtn.addEventListener("click",() => { 
     var cursor = editor.state.selection.main.head
-    let transaction = editor.state.update({changes: {from: cursor, insert: "andarFrente()\n"}})
+    let transaction = editor.state.update({changes: {from: cursor, insert: "andarFrente(?)\n"}})
     editor.dispatch(transaction)
     editor.focus()
     let actualLine = editor.state.doc.lineAt(cursor).number
@@ -53,7 +53,7 @@ andarFrenteBtn.addEventListener("click",() => {
 const andarTrasBtn = document.getElementById('andarTras');
 andarTrasBtn.addEventListener("click",() => { 
     var cursor = editor.state.selection.main.head
-    let transaction = editor.state.update({changes: {from: cursor, insert: "andarTras()\n"}})
+    let transaction = editor.state.update({changes: {from: cursor, insert: "andarTras(?)\n"}})
     editor.dispatch(transaction)
     editor.focus()
     let actualLine = editor.state.doc.lineAt(cursor).number
@@ -94,10 +94,10 @@ darMeiaVoltaBtn.addEventListener("click",() => {
     editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
-const ColetarCristalBtn = document.getElementById('ColetarCristal');
-ColetarCristalBtn.addEventListener("click",() => { 
+const coletarCristalBtn = document.getElementById('coletarCristal');
+coletarCristalBtn.addEventListener("click",() => { 
     var cursor = editor.state.selection.main.head
-    let transaction = editor.state.update({changes: {from: cursor, insert: "ColetarCristal()\n"}})
+    let transaction = editor.state.update({changes: {from: cursor, insert: "coletarCristal()\n"}})
     editor.dispatch(transaction)
     editor.focus()
     let actualLine = editor.state.doc.lineAt(cursor).number
