@@ -123,6 +123,28 @@ coletarCristalBtn.addEventListener("click",() => {
     editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
+const laserAzulAtivoBtn = document.getElementById('laserAzulAtivo');
+laserAzulAtivoBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "laserAzulAtivo()"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
+const laserVermelhoAtivoBtn = document.getElementById('laserVermelhoAtivo');
+laserVermelhoAtivoBtn.addEventListener("click",() => { 
+    var cursor = editor.state.selection.main.head
+    let transaction = editor.state.update({changes: {from: cursor, insert: "laserVermelhoAtivo()"}})
+    editor.dispatch(transaction)
+    editor.focus()
+    let actualLine = editor.state.doc.lineAt(cursor).number
+    let nextLinePos = editor.state.doc.line(actualLine).to
+    editor.dispatch({selection:{anchor: nextLinePos}})
+});
+
 const condicaoFullBtn = document.getElementById('condicaoFull');
 condicaoFullBtn.addEventListener("click",() => { 
     var cursor = editor.state.selection.main.head
