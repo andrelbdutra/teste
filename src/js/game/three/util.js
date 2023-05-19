@@ -197,6 +197,37 @@ function leanMovement(actor,mode)
     requestID = requestAnimationFrame(rotate);
 }
 
+function DeathMovement(actor,mode)
+{
+    let angleRotated = 0;
+    let totalRotation = 90;
+    let requestID;
+    
+    function rotate()
+    {
+        if(angleRotated < totalRotation)
+        {
+            if(mode == 0)
+            {
+                actor.rotateX(degreeToRadians(3));
+            }
+            else
+            {
+                actor.rotateX(degreeToRadians(-3));
+            }
+            angleRotated += 3;
+            requestID = requestAnimationFrame(rotate);
+        }
+        else
+        {
+            cancelAnimationFrame(requestID);
+        }
+    }
+
+    requestID = requestAnimationFrame(rotate);
+    actor.position.y = -0.5
+}
+
 export function translateActor(actor, amount, gridMapHelper, sceneProperties, consoleElement)
 {
     const objCopy = actor.clone(false);
@@ -238,6 +269,27 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
         corrID = requestAnimationFrame(correct);
     }
 
+    function correctPositionOnDeath(positionToStop)
+    {
+        let corrID;
+        function correct()
+        {
+            if(!positionAlmostEqual(actor.position,positionToStop))
+            {
+                actor.position.lerp(positionToStop,0.15);
+                corrID = requestAnimationFrame(correct);
+            }
+            else
+            {
+                cancelAnimationFrame(corrID);
+            }
+        }
+
+        corrID = requestAnimationFrame(correct);
+
+        DeathMovement(actor.getObjectByName('eve'),modeGo)
+    }
+
     leanMovement(actor.getObjectByName('eve'),modeGo);
     return new Promise(function(resolve){
         function translate()
@@ -253,14 +305,14 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
             {
                 consoleElement.innerText += "Aviso: Robô caiu na armadilha.\n";
                 sceneProperties.cancelExecution = true;
-                correctPositionOnCancel(gridMapHelper.trapCollision(actor.position));
+                correctPositionOnDeath(gridMapHelper.trapCollision(actor.position));
             }
 
             if(gridMapHelper.fireCollision(actor.position))
             {
                 consoleElement.innerText += "Aviso: Robô foi queimado!\n";
                 sceneProperties.cancelExecution = true;
-                correctPositionOnCancel(gridMapHelper.fireCollision(actor.position));
+                correctPositionOnDeath(gridMapHelper.fireCollision(actor.position));
             }
 
             if(gridMapHelper.laserCollision(actor.position))
@@ -318,7 +370,7 @@ export function checkCollision(objectA,objectB,gridMapHelper)
 {
     const vec = new THREE.Vector3();
     objectA.getWorldPosition(vec);
-    if(gridMapHelper.getXCoordFromGlobalPosition(vec.x) == gridMapHelper.getXCoordFromGlobalPosition(objectB.position.x) && gridMapHelper.getZCoordFromGlobalPosition(vec.z) == gridMapHelper.getZCoordFromGlobalPosition(objectB.position.z))
+    if(gridMapHelper.getXCoordFromGlobalPosition(vec.x) == gridMapHelper.getXCoordFromGlobalPosition(objectB.position.x) && gridMapHelper.getZCoordFromGlobalPosition(vec.z) == gridMapHelper.getZCoordFromGlobalPosition(objectB.position.z) && objectB.visible)
     {
         return true;
     }

@@ -41,66 +41,120 @@ const editor = generateDefaultEditor(document.getElementById("editorArea"), {
 
 const andarFrenteBtn = document.getElementById('andarFrente');
 andarFrenteBtn.addEventListener("click",() => { 
-    var cursor = editor.state.selection.main.head
-    let transaction = editor.state.update({changes: {from: cursor, insert: "andarFrente(?)\n"}})
+    let cursorAnchor = editor.state.selection.main.anchor
+    let cursorHead = editor.state.selection.main.head
+    let transaction
+    let actualLine
+    if(cursorAnchor <= cursorHead){
+        transaction = editor.state.update({changes: {from: cursorAnchor, to: cursorHead, insert: "andarFrente(?)\n"}})
+        actualLine = editor.state.doc.lineAt(cursorAnchor).number
+    }
+    else {
+        transaction = editor.state.update({changes: {from: cursorHead, to: cursorAnchor, insert: "andarFrente(?)\n"}})
+        actualLine = editor.state.doc.lineAt(cursorHead).number
+    }
     editor.dispatch(transaction)
     editor.focus()
-    let actualLine = editor.state.doc.lineAt(cursor).number
     let nextLinePos = editor.state.doc.line(actualLine+1).to
     editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const andarTrasBtn = document.getElementById('andarTras');
 andarTrasBtn.addEventListener("click",() => { 
-    var cursor = editor.state.selection.main.head
-    let transaction = editor.state.update({changes: {from: cursor, insert: "andarTras(?)\n"}})
+    let cursorAnchor = editor.state.selection.main.anchor
+    let cursorHead = editor.state.selection.main.head
+    let transaction
+    let actualLine
+    if(cursorAnchor <= cursorHead){
+        transaction = editor.state.update({changes: {from: cursorAnchor, to: cursorHead, insert: "andarTras(?)\n"}})
+        actualLine = editor.state.doc.lineAt(cursorAnchor).number
+    }
+    else {
+        transaction = editor.state.update({changes: {from: cursorHead, to: cursorAnchor, insert: "andarTras(?)\n"}})
+        actualLine = editor.state.doc.lineAt(cursorHead).number
+    }
     editor.dispatch(transaction)
     editor.focus()
-    let actualLine = editor.state.doc.lineAt(cursor).number
     let nextLinePos = editor.state.doc.line(actualLine+1).to
     editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const girarEsquerdaBtn = document.getElementById('girarEsquerda');
 girarEsquerdaBtn.addEventListener("click",() => { 
-    var cursor = editor.state.selection.main.head
-    let transaction = editor.state.update({changes: {from: cursor, insert: "girarEsquerda()\n"}})
+    let cursorAnchor = editor.state.selection.main.anchor
+    let cursorHead = editor.state.selection.main.head
+    let transaction
+    let actualLine
+    if(cursorAnchor <= cursorHead){
+        transaction = editor.state.update({changes: {from: cursorAnchor, to: cursorHead, insert: "girarEsquerda()\n"}})
+        actualLine = editor.state.doc.lineAt(cursorAnchor).number
+    }
+    else {
+        transaction = editor.state.update({changes: {from: cursorHead, to: cursorAnchor, insert: "girarEsquerda()\n"}})
+        actualLine = editor.state.doc.lineAt(cursorHead).number
+    }
     editor.dispatch(transaction)
     editor.focus()
-    let actualLine = editor.state.doc.lineAt(cursor).number
     let nextLinePos = editor.state.doc.line(actualLine+1).to
     editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const girarDireitaBtn = document.getElementById('girarDireita');
 girarDireitaBtn.addEventListener("click",() => { 
-    var cursor = editor.state.selection.main.head
-    let transaction = editor.state.update({changes: {from: cursor, insert: "girarDireita()\n"}})
+    let cursorAnchor = editor.state.selection.main.anchor
+    let cursorHead = editor.state.selection.main.head
+    let transaction
+    let actualLine
+    if(cursorAnchor <= cursorHead){
+        transaction = editor.state.update({changes: {from: cursorAnchor, to: cursorHead, insert: "girarDireita()\n"}})
+        actualLine = editor.state.doc.lineAt(cursorAnchor).number
+    }
+    else {
+        transaction = editor.state.update({changes: {from: cursorHead, to: cursorAnchor, insert: "girarDireita()\n"}})
+        actualLine = editor.state.doc.lineAt(cursorHead).number
+    }
     editor.dispatch(transaction)
     editor.focus()
-    let actualLine = editor.state.doc.lineAt(cursor).number
     let nextLinePos = editor.state.doc.line(actualLine+1).to
     editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const darMeiaVoltaBtn = document.getElementById('darMeiaVolta');
 darMeiaVoltaBtn.addEventListener("click",() => { 
-    var cursor = editor.state.selection.main.head
-    let transaction = editor.state.update({changes: {from: cursor, insert: "darMeiaVolta()\n"}})
+    let cursorAnchor = editor.state.selection.main.anchor
+    let cursorHead = editor.state.selection.main.head
+    let transaction
+    let actualLine
+    if(cursorAnchor <= cursorHead){
+        transaction = editor.state.update({changes: {from: cursorAnchor, to: cursorHead, insert: "darMeiaVolta()\n"}})
+        actualLine = editor.state.doc.lineAt(cursorAnchor).number
+    }
+    else {
+        transaction = editor.state.update({changes: {from: cursorHead, to: cursorAnchor, insert: "darMeiaVolta()\n"}})
+        actualLine = editor.state.doc.lineAt(cursorHead).number
+    }
     editor.dispatch(transaction)
     editor.focus()
-    let actualLine = editor.state.doc.lineAt(cursor).number
     let nextLinePos = editor.state.doc.line(actualLine+1).to
     editor.dispatch({selection:{anchor: nextLinePos}})
 });
 
 const coletarCristalBtn = document.getElementById('coletarCristal');
 coletarCristalBtn.addEventListener("click",() => { 
-    var cursor = editor.state.selection.main.head
-    let transaction = editor.state.update({changes: {from: cursor, insert: "coletarCristal()\n"}})
+    let cursorAnchor = editor.state.selection.main.anchor
+    let cursorHead = editor.state.selection.main.head
+    let transaction
+    let actualLine
+    if(cursorAnchor <= cursorHead){
+        transaction = editor.state.update({changes: {from: cursorAnchor, to: cursorHead, insert: "coletarCristal()\n"}})
+        actualLine = editor.state.doc.lineAt(cursorAnchor).number
+    }
+    else {
+        transaction = editor.state.update({changes: {from: cursorHead, to: cursorAnchor, insert: "coletarCristal()\n"}})
+        actualLine = editor.state.doc.lineAt(cursorHead).number
+    }
     editor.dispatch(transaction)
     editor.focus()
-    let actualLine = editor.state.doc.lineAt(cursor).number
     let nextLinePos = editor.state.doc.line(actualLine+1).to
     editor.dispatch({selection:{anchor: nextLinePos}})
 });
@@ -130,12 +184,14 @@ scene.add(actor);
 
 async function andarFrente(amount)
 {
-    await translateActor(actor,amount,gridMapHelper,sceneProperties,consoleElement);
+    let correctedAmount = amount > 10 ? 10 : amount;
+    await translateActor(actor,correctedAmount,gridMapHelper,sceneProperties,consoleElement);
 }
 
 async function andarTras(amount)
 {
-    await translateActor(actor,-amount,gridMapHelper,sceneProperties,consoleElement);
+    let correctedAmount = amount > 10 ? 10 : amount;
+    await translateActor(actor,-correctedAmount,gridMapHelper,sceneProperties,consoleElement);
 }
 
 async function girarEsquerda()
@@ -176,6 +232,7 @@ phaseGeneration.push(
 
         objectives = loadDefaultObjectives(1);
         objectives[0].position.set(gridMapHelper.getGlobalXPositionFromCoord(9),0.0,gridMapHelper.getGlobalZPositionFromCoord(5));
+        gridMapHelper.addObstacle(9,9,5,5);
         scene.add(objectives[0]);
 
         coletarCristal = () => {
@@ -231,6 +288,7 @@ phaseGeneration.push(
 
         objectives = loadDefaultObjectives(1);
         objectives[0].position.set(gridMapHelper.getGlobalXPositionFromCoord(8),0.0,gridMapHelper.getGlobalZPositionFromCoord(2));
+        gridMapHelper.addObstacle(8,8,2,2);
         scene.add(objectives[0]);
 
         coletarCristal = () => {
@@ -287,6 +345,8 @@ phaseGeneration.push(
         objectives = loadDefaultObjectives(2);
         objectives[0].position.set(gridMapHelper.getGlobalXPositionFromCoord(2),0.0,gridMapHelper.getGlobalZPositionFromCoord(6));
         objectives[1].position.set(gridMapHelper.getGlobalXPositionFromCoord(7),0.0,gridMapHelper.getGlobalZPositionFromCoord(1));
+        gridMapHelper.addObstacle(2,2,6,6);
+        gridMapHelper.addObstacle(7,7,1,1);
         scene.add(objectives[0]);
         scene.add(objectives[1]);
 
@@ -354,6 +414,7 @@ phaseGeneration.push(
 
         objectives = loadDefaultObjectives(1);
         objectives[0].position.set(gridMapHelper.getGlobalXPositionFromCoord(9),0.0,gridMapHelper.getGlobalZPositionFromCoord(5));
+        gridMapHelper.addObstacle(9,9,5,5);
         scene.add(objectives[0]);
 
         walls = [];
@@ -418,6 +479,8 @@ phaseGeneration.push(
         objectives = loadDefaultObjectives(2);
         objectives[0].position.set(gridMapHelper.getGlobalXPositionFromCoord(6),0.0,gridMapHelper.getGlobalZPositionFromCoord(2));
         objectives[1].position.set(gridMapHelper.getGlobalXPositionFromCoord(7),0.0,gridMapHelper.getGlobalZPositionFromCoord(8));
+        gridMapHelper.addObstacle(6,6,2,2);
+        gridMapHelper.addObstacle(7,7,8,8);
         scene.add(objectives[0]);
         scene.add(objectives[1]);
 
@@ -499,6 +562,7 @@ phaseGeneration.push(
 
         objectives = loadDefaultObjectives(1);
         objectives[0].position.set(gridMapHelper.getGlobalXPositionFromCoord(8),0.0,gridMapHelper.getGlobalZPositionFromCoord(0));
+        gridMapHelper.addObstacle(8,8,0,0);
         scene.add(objectives[0]);
 
         walls = [];
@@ -572,6 +636,7 @@ phaseGeneration.push(
 
         objectives = loadDefaultObjectives(1);
         objectives[0].position.set(gridMapHelper.getGlobalXPositionFromCoord(9),0.0,gridMapHelper.getGlobalZPositionFromCoord(0));
+        gridMapHelper.addObstacle(9,9,0,0);
         scene.add(objectives[0]);
 
         walls = [];
@@ -680,6 +745,9 @@ phaseGeneration.push(
         objectives[0].position.set(gridMapHelper.getGlobalXPositionFromCoord(6),0.0,gridMapHelper.getGlobalZPositionFromCoord(2));
         objectives[1].position.set(gridMapHelper.getGlobalXPositionFromCoord(7),0.0,gridMapHelper.getGlobalZPositionFromCoord(8));
         objectives[2].position.set(gridMapHelper.getGlobalXPositionFromCoord(2),0.0,gridMapHelper.getGlobalZPositionFromCoord(5));
+        gridMapHelper.addObstacle(6,6,2,2);
+        gridMapHelper.addObstacle(7,7,8,8);
+        gridMapHelper.addObstacle(2,2,5,5);
         scene.add(objectives[0]);
         scene.add(objectives[1]);
         scene.add(objectives[2]);
@@ -884,6 +952,7 @@ execBtn.addEventListener("click",async function() {
 const resetBtn = document.getElementById("resetBtn");
 resetBtn.addEventListener("click",() => {
     sceneProperties.cancelExecution = true;
+    actor.getObjectByName('eve').position.y = 0
     resetLevel();
 });
 
