@@ -3,6 +3,11 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 
+export let materialColor = [];
+export let corrID;
+export let requestID;
+
+
 export function degreeToRadians(angle)
 {
     return angle * (Math.PI / 180);
@@ -197,11 +202,10 @@ function leanMovement(actor,mode)
     requestID = requestAnimationFrame(rotate);
 }
 
-function DeathMovement(actor,mode)
+function DeathMovement(actor,mode,direction)
 {
     let angleRotated = 0;
     let totalRotation = 90;
-    let requestID;
     
     function rotate()
     {
@@ -209,11 +213,17 @@ function DeathMovement(actor,mode)
         {
             if(mode == 0)
             {
-                actor.rotateX(degreeToRadians(3));
+                if(direction == "X")
+                    actor.rotateX(degreeToRadians(3));
+                else if(direction == "Z")
+                    actor.rotateZ(degreeToRadians(3));
             }
             else
             {
-                actor.rotateX(degreeToRadians(-3));
+                if(direction == "X")
+                    actor.rotateX(degreeToRadians(-3));
+                else if(direction == "Z")
+                    actor.rotateZ(degreeToRadians(-3));
             }
             angleRotated += 3;
             requestID = requestAnimationFrame(rotate);
@@ -226,6 +236,32 @@ function DeathMovement(actor,mode)
 
     requestID = requestAnimationFrame(rotate);
     actor.position.y = -0.5
+}
+
+export function saveRobotColor(actor){
+    actor.getObjectByName('eve').traverse((child) => {
+        if (child.material) {
+            materialColor.push(child.material.color.getHex())
+        }
+      });
+}
+
+function changeRobotColor(actor, hex){
+    actor.getObjectByName('eve').traverse((child) => {
+        if (child.material) {
+          child.material.color.setHex(hex);
+        }
+      });
+}
+
+export function resetRobotColor(actor){
+    let count = 0;
+    actor.getObjectByName('eve').traverse((child) => {
+        if (child.material) {
+            child.material.color.setHex(materialColor[count]);
+          count ++;
+        }
+      });
 }
 
 export function translateActor(actor, amount, gridMapHelper, sceneProperties, consoleElement)
@@ -249,7 +285,7 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
             return false;
         }
     }
-
+    
     function correctPositionOnCancel(positionToStop)
     {
         let corrID;
@@ -265,29 +301,51 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
                 cancelAnimationFrame(corrID);
             }
         }
-
+        
         corrID = requestAnimationFrame(correct);
     }
 
-    function correctPositionOnDeath(positionToStop)
+    function correctPositionOnDeath(positionToStop, type)
     {
-        let corrID;
-        function correct()
-        {
-            if(!positionAlmostEqual(actor.position,positionToStop))
+        if(type == "fire"){
+            function correct()
             {
-                actor.position.lerp(positionToStop,0.15);
-                corrID = requestAnimationFrame(correct);
+                if(!positionAlmostEqual(actor.position,positionToStop))
+                {
+                    actor.position.lerp(positionToStop,0.15);
+                    corrID = requestAnimationFrame(correct);
+                }
+                else
+                {
+                    cancelAnimationFrame(corrID);
+                }
             }
-            else
-            {
-                cancelAnimationFrame(corrID);
-            }
+
+            corrID = requestAnimationFrame(correct);
+
+            DeathMovement(actor.getObjectByName('eve'),modeGo,"X")
+            if(materialColor.length == 0)
+                saveRobotColor(actor)
+            changeRobotColor(actor, 0xff6242)
         }
+        else if(type == "trap"){
+            function correct()
+            {
+                if(!positionAlmostEqual(actor.position,positionToStop))
+                {
+                    actor.position.lerp(positionToStop,0.15);
+                    corrID = requestAnimationFrame(correct);
+                }
+                else
+                {
+                    cancelAnimationFrame(corrID);
+                }
+            }
 
-        corrID = requestAnimationFrame(correct);
+            corrID = requestAnimationFrame(correct);
 
-        DeathMovement(actor.getObjectByName('eve'),modeGo)
+            DeathMovement(actor.getObjectByName('eve'),modeGo,"Z")
+        }
     }
 
     leanMovement(actor.getObjectByName('eve'),modeGo);
@@ -305,14 +363,14 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
             {
                 consoleElement.innerText += "Aviso: Robô caiu na armadilha.\n";
                 sceneProperties.cancelExecution = true;
-                correctPositionOnDeath(gridMapHelper.trapCollision(actor.position));
+                correctPositionOnDeath(gridMapHelper.trapCollision(actor.position), "trap");
             }
 
             if(gridMapHelper.fireCollision(actor.position))
             {
                 consoleElement.innerText += "Aviso: Robô foi queimado!\n";
                 sceneProperties.cancelExecution = true;
-                correctPositionOnDeath(gridMapHelper.fireCollision(actor.position));
+                correctPositionOnDeath(gridMapHelper.fireCollision(actor.position), "fire");
             }
 
             if(gridMapHelper.laserCollision(actor.position))

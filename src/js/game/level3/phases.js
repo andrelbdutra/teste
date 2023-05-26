@@ -2224,6 +2224,7 @@ execBtn.addEventListener("click",async function() {
     const codeParsed = parseCode(editor.state.doc.toString());
     console.log(codeParsed);
     sceneProperties.cancelExecution = false;
+    actor.getObjectByName('eve').position.y = 0;
     if(traps != null)
         trapsDeactivation(traps)
     if(codeParsed != null)

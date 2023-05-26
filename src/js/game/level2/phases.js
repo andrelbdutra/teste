@@ -8,7 +8,11 @@ import {
     translateActor,
     rotateActor,
     checkCollision,
-    degreeToRadians
+    degreeToRadians,
+    resetRobotColor,
+    materialColor,
+    corrID,
+    requestID
 } from "../three/util";
 import GridMapHelper from "../three/GridMapHelper";
 import FireBase from "../three/FireBase";
@@ -253,6 +257,7 @@ function firesVisualRestart()
 
 scene.add(plane);
 scene.add(actor);
+
 
 async function andarFrente(amount)
 {
@@ -1782,7 +1787,12 @@ window.addEventListener('resize',() => {
 
 const execBtn = document.getElementById("execBtn")
 execBtn.addEventListener("click",async function() {
+    cancelAnimationFrame(corrID);    
+    cancelAnimationFrame(requestID);
     const codeParsed = parseCode(editor.state.doc.toString());
+    actor.getObjectByName('eve').position.y = 0;
+    if(materialColor.length != 0)
+        resetRobotColor(actor);
     if(traps != null)
         trapsDeactivation(traps)
     sceneProperties.cancelExecution = false;
@@ -1810,8 +1820,12 @@ execBtn.addEventListener("click",async function() {
 
 const resetBtn = document.getElementById("resetBtn");
 resetBtn.addEventListener("click",() => {
+    cancelAnimationFrame(corrID);
+    cancelAnimationFrame(requestID);
     sceneProperties.cancelExecution = true;
-    actor.getObjectByName('eve').position.y = 0
+    actor.getObjectByName('eve').position.y = 0;
+    if(materialColor.length != 0)
+        resetRobotColor(actor);
     resetLevel();
 });
 
@@ -1843,6 +1857,7 @@ advanceBtn.addEventListener('click',(e) => {
 
 //Running level 2
 resizeCanvasToDisplaySize(renderer,camera);
-phaseGeneration[sceneProperties.phase]();
+//phaseGeneration[sceneProperties.phase]();
+phaseGeneration[0]();
 displayExtinguisherUses();
 animate();
