@@ -142,15 +142,15 @@ export function trapsActivation(traps){
             if(traps[i].spikes[4].position.y.toFixed(1) < 1)
             {
                 cancelAnimationFrame(traps[i].requestID);
-                this.alpha += 0.01;
+                alpha2 += 0.01;
                 traps[i].active = true;
-                traps[i].spikes.forEach(spike => spike.position.lerp(new THREE.Vector3(spike.position.x, 1, spike.position.z), this.alpha))
+                traps[i].spikes.forEach(spike => spike.position.lerp(new THREE.Vector3(spike.position.x, 1, spike.position.z), alpha2))
                 traps[i].requestID = requestAnimationFrame(activateTrap);
             }
             else
             {
                 cancelAnimationFrame(traps[i].requestID);
-                this.alpha = 0.01
+                alpha2 = 0.01
             }
         }
     }
@@ -163,15 +163,15 @@ export function trapsDeactivation(traps){
             if(traps[i].spikes[4].position.y.toFixed(1) > -1)
             {
                 cancelAnimationFrame(traps[i].requestID);
-                this.alpha += 0.001;
+                alpha2 += 0.001;
                 traps[i].active = false;
-                traps[i].spikes.forEach(spike => spike.position.lerp(new THREE.Vector3(spike.position.x, -1, spike.position.z), this.alpha))
+                traps[i].spikes.forEach(spike => spike.position.lerp(new THREE.Vector3(spike.position.x, -1, spike.position.z), alpha2))
                 traps[i].requestID = requestAnimationFrame(deactivateTrap);
             }
             else
             {
                 cancelAnimationFrame(traps[i].requestID);
-                this.alpha = 0.01
+                alpha2 = 0.01
             }
         }
     }
