@@ -265,7 +265,6 @@ function changeRobotColor(actor, hex){
                     if(alpha > 0.8)
                         return;
                     changColorID = requestAnimationFrame(correct);
-                    console.log(child.material.color)
                 }
                 else
                 {
