@@ -12,7 +12,8 @@ import {
     resetRobotColor,
     materialColor,
     corrID,
-    requestID
+    requestID,
+    changColorID
 } from "../three/util";
 import GridMapHelper from "../three/GridMapHelper";
 import FireBase from "../three/FireBase";
@@ -1822,6 +1823,7 @@ const resetBtn = document.getElementById("resetBtn");
 resetBtn.addEventListener("click",() => {
     cancelAnimationFrame(corrID);
     cancelAnimationFrame(requestID);
+    cancelAnimationFrame(changColorID)
     sceneProperties.cancelExecution = true;
     actor.getObjectByName('eve').position.y = 0;
     if(materialColor.length != 0)

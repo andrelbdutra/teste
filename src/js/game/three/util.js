@@ -6,6 +6,8 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 export let materialColor = [];
 export let corrID;
 export let requestID;
+export let changColorID;
+
 
 
 export function degreeToRadians(angle)
@@ -247,12 +249,36 @@ export function saveRobotColor(actor){
 }
 
 function changeRobotColor(actor, hex){
+    let red = 200;
+    let c1 = new THREE.Color("white");
+    let c2 = new THREE.Color(0xff4547);
+    let alpha = 0.0005;
+
     actor.getObjectByName('eve').traverse((child) => {
-        if (child.material) {
-          child.material.color.setHex(hex);
+        if (child.material ) {
+            function correct()
+            {
+                if(!alpha < 0.5)
+                {
+                    child.material.color.lerpColors(c1, c2, alpha);
+                    alpha = alpha + 0.0003
+                    if(alpha > 0.8)
+                        return;
+                    changColorID = requestAnimationFrame(correct);
+                    console.log(child.material.color)
+                }
+                else
+                {
+                    cancelAnimationFrame(changColorID);
+                }
+            }
+            changColorID = requestAnimationFrame(correct);
+
         }
-      });
+        });
+
 }
+
 
 export function resetRobotColor(actor){
     let count = 0;
