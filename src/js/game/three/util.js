@@ -379,6 +379,7 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
         }
         else if(type == "laser"){
             actor.add(smoke)
+            let rightPos = false;
             function correct()
             {
                 if(!positionAlmostEqual(actor.position,positionToStop))
@@ -388,12 +389,27 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
                 }
                 else
                 {
+                    let actorX = actor.position.x
+                    let actorY = actor.position.y
+                    let actorZ = actor.position.z
                     cancelAnimationFrame(corrID);
+                    function robotShake()
+                    {
+                        let rngX = actorX + getRandom(-0.5, 0.5)
+                        let rngY = actorY + getRandom(-0.5, 0.5)
+                        let rngZ = actorZ + getRandom(-0.5, 0.5)
+                            actor.position.lerp(new THREE.Vector3(rngX, rngY, rngZ),0.1);
+                            corrID = requestAnimationFrame(robotShake);
+                        
+                        
+                    }
+                    corrID = requestAnimationFrame(robotShake);
+
                 }
             }
-            DeathMovement(actor.getObjectByName('eve'),modeGo,"X")
             corrID = requestAnimationFrame(correct);
 
+            //DeathMovement(actor.getObjectByName('eve'),modeGo,"X")
             let k = 0
                 function animateSmoke()
                 {
