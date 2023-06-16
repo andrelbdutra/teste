@@ -3,14 +3,19 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 import {Smoke} from "./Smoke/index.js"
+import {Shock} from "./Shock/index.js"
 
 export let materialColor = [];
 export let corrID;
 export let requestID;
 export let changColorID;
 export let smokeAnimationFrame;
+export let smokeAnimationFrame2
+export let shockAnimationFrame;
 
 export let smoke = new Smoke();
+export let smoke2 = new Smoke();
+export let shock = new Shock();
 
 export function degreeToRadians(angle)
 {
@@ -379,6 +384,36 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
         }
         else if(type == "laser"){
             actor.add(smoke)
+            actor.add(smoke2)
+            // actor.add(shock)
+
+            // let j = 0
+            // function robotShock()
+            // {
+            //     if(shock.sparkles[0].position.y.toFixed(1) < 2)
+            //     {
+            //         shock.sparkles.forEach(sparkle => sparkle.visible = true)
+            //         shock.sparkles[0].position.lerp(new THREE.Vector3(getRandom(-3,3),5,getRandom(-3,3)), 0.005)
+            //         shock.sparkles[1].position.lerp(new THREE.Vector3(-5,getRandom(-5,5),getRandom(-5,5)), 0.005)
+            //         shock.sparkles[2].position.lerp(new THREE.Vector3(5,getRandom(-5,5),getRandom(-5,5)), 0.005)
+            //         shock.sparkles[3].position.lerp(new THREE.Vector3(getRandom(-5,5),getRandom(-5,5),5), 0.005)
+
+
+            //         shockAnimationFrame = requestAnimationFrame(robotShock);
+            //     }
+            //     else
+            //     {
+            //         cancelAnimationFrame(shockAnimationFrame);
+            //         shock.sparkles.forEach(sparkle => sparkle.visible = false)
+            //         shock.sparkles.forEach(sparkle => sparkle.position.set(0,0,0))
+            //     }
+            // }
+            // shockAnimationFrame = requestAnimationFrame(robotShock);
+
+                
+            
+            corrID = requestAnimationFrame(correct);
+
             let rightPos = false;
             function correct()
             {
@@ -395,9 +430,9 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
                     cancelAnimationFrame(corrID);
                     function robotShake()
                     {
-                        let rngX = actorX + getRandom(-0.5, 0.5)
-                        let rngY = actorY + getRandom(-0.5, 0.5)
-                        let rngZ = actorZ + getRandom(-0.5, 0.5)
+                        let rngX = actorX + getRandom(-0.25, 0.25)
+                        let rngY = actorY + getRandom(-0.25, 0.25)
+                        let rngZ = actorZ + getRandom(-0.25, 0.25)
                             actor.position.lerp(new THREE.Vector3(rngX, rngY, rngZ),0.1);
                             corrID = requestAnimationFrame(robotShake);
                         
@@ -413,12 +448,12 @@ export function translateActor(actor, amount, gridMapHelper, sceneProperties, co
             let k = 0
                 function animateSmoke()
                 {
-                    if(smoke.smokes[k].position.y.toFixed(1) < 4)
+                    if(smoke.smokes[k].position.y.toFixed(1) < 5)
                     {
                         smoke.smokes[k].visible = true
                         smoke.smokes[k].material.opacity = smoke.smokes[k].material.opacity - 0.02
                         smoke.smokes[k].position.lerp(new THREE.Vector3(getRandom(-3,3),5,getRandom(-3,3)), 0.02)
-                        if(smoke.smokes[k].position.y.toFixed(1) > 3){
+                        if(smoke.smokes[k].position.y.toFixed(1) > 4){
                             smoke.smokes[k].position.y = 0
                             smoke.smokes[k].material.opacity = 0.7
                             smoke.smokes[k].visible = false

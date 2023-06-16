@@ -29,8 +29,8 @@ export class Smoke extends THREE.Object3D {
         this.smokes;
         this.alpha = 0.01
         let color = "gray"
-        let radius = getRandom(0.1, 0.7)
-        let opacity = getRandom(0.8, 0.97)
+        let radius = 0.65
+        let opacity = getRandom(0.90, 0.97)
         let rotation = getRandom(1, 25)
 
 
@@ -40,14 +40,14 @@ export class Smoke extends THREE.Object3D {
         //smoke1.rotateX(degreesToRadians(40))
         //smoke1.rotateOnAxis(degreesToRadians(0))
         smoke1.visible = false
-        let smoke2 = new Spheres(getRandom(0.15, 0.25), color, getRandom(0.7, 0.9));
+        let smoke2 = new Spheres(getRandom(0.25, 0.45), color, getRandom(0.85, 0.95));
         //smoke2.position.set(0, 4, 0)
         smoke2.visible = false
-        let smoke3 = new Spheres(getRandom(0.15, 0.25), color, getRandom(0.7, 0.9));
+        let smoke3 = new Spheres(getRandom(0.25, 0.45), color, getRandom(0.85, 0.95));
         //smoke3.position.set(0, 5, 0)
         smoke3.visible = false
 
-        let smoke4 = new Spheres(getRandom(0.15, 0.25), color, getRandom(0.7, 0.9));
+        let smoke4 = new Spheres(getRandom(0.25, 0.45), color, getRandom(0.85, 0.95));
         //smoke4.position.set(0, 6, 0)
         smoke4.visible = false
 
